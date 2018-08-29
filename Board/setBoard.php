@@ -15,7 +15,7 @@ if (!$link)
 mysqli_set_charset($link,"utf8");
 
 $user_id = $_POST['user_id'];
-$image_url = "localhost/PickPic/".$user_id."/".$_POST['image_url'].time();
+$image_url = $_POST['image_url'];
 $location = $_POST['location'];
 $description = $_POST['description'];
 $camera = $_POST['camera'];
@@ -24,11 +24,12 @@ $tightening = $_POST['tightening'];
 $shutter_speed = $_POST['shutter_speed'];
 $iso = $_POST['iso'];
 
-$sql = "INSERT INTO board VALUES(null, '".$user_id."', '".$image_url."', '".$location."', '".$description."', '".$camera."', '".$angle."', '".$tightening."', '".$shutter_speed."', ".$iso.")";
+$sql = "INSERT INTO board VALUES(null, '".$user_id."', '".$image_url."', '".$location."', '".$description."', '".$camera."', '".$angle."', '".$tightening."', '".$shutter_speed."', ".$iso.");";
 $result=mysqli_query($link,$sql);
 
 if(!$result){
         echo "SQL문 처리중 에러 발생 : ";
+	echo "??1".$sql;
         echo mysqli_error($link);
 }else{
 
@@ -38,12 +39,13 @@ if(!$result){
 
         $tags = json_decode(stripslashes($_POST['tag']));
         foreach ($tags as $tag) {
-            $sql = "INSERT INTO board_tag VALUES(null, ".$sub_row[0].", '".$tag."')";
+            $sql = "INSERT INTO board_tag VALUES(null, ".$sub_row[0].", '".$tag."');";
             $result = mysqli_query($link, $sql);
     
             if(!$result){
                 echo "SQL문 처리중 에러 발생 : ";
-                echo mysqli_error($link);
+                echo "2";
+		echo mysqli_error($link);
                 break;
             }
         }
