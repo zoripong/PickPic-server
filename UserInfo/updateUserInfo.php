@@ -21,11 +21,12 @@ $password = $_POST['password'];
 $nick_name = $_POST['nick_name'];
 
 
-$sql = "update user SET user_id = '".$user_id."', password = '".$password."', nick_name = '".$nick_name."')";
+$sql = "update user SET user_id = '".$user_id."', password = '".$password."', nick_name = '".$nick_name."' where user_id='".$user_id."'";
 $result=mysqli_query($link,$sql);
 
 if(!$result){
         echo "SQL문 처리중 에러 발생 : ";
+	echo "sql:".$sql;
         echo mysqli_error($link);
 }else{
     // 지우고 재삽입
